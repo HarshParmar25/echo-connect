@@ -15,7 +15,6 @@ export const useGetCalls = () => {
       setIsLoading(true);
 
       try {
-        // https://getstream.io/video/docs/react/guides/querying-calls/#filters
         const { calls } = await client.queryCalls({
           sort: [{ field: "starts_at", direction: -1 }],
           filter_conditions: {
@@ -43,6 +42,12 @@ export const useGetCalls = () => {
 
   const upcomingCalls = calls?.filter(({ state: { startsAt } }: Call) => {
     return startsAt && new Date(startsAt) > now;
+  });
+
+  upcomingCalls?.sort((a, b) => {
+    const aDate = a.state?.startsAt ? new Date(a.state.startsAt).getTime() : 0;
+    const bDate = b.state?.startsAt ? new Date(b.state.startsAt).getTime() : 0;
+    return aDate - bDate;
   });
 
   return { endedCalls, upcomingCalls, callRecordings: calls, isLoading };
