@@ -12,6 +12,14 @@ const Home = () => {
       return "Loading...";
     }
 
+    if (upcomingCalls?.length) {
+      upcomingCalls.sort((a, b) => {
+        const aDate = a.state?.startsAt ? new Date(a.state.startsAt).getTime() : 0;
+        const bDate = b.state?.startsAt ? new Date(b.state.startsAt).getTime() : 0;
+        return aDate - bDate;
+      });
+    }
+
     if (upcomingCalls?.length && upcomingCalls[0].state?.startsAt) {
       const today = new Date();
       const meetingDate = new Date(upcomingCalls[0].state?.startsAt);
