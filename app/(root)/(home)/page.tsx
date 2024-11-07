@@ -1,5 +1,6 @@
 "use client";
 
+import CallList from "@/components/CallList";
 import MeetingTypeList from "@/components/MeetingTypeList";
 import { useGetCalls } from "@/hooks/useGetCalls";
 import React from "react";
@@ -63,6 +64,12 @@ const Home = () => {
         </div>
       </div>
       <MeetingTypeList />
+      <div>
+        <h2 className="text-3xl font-bold">Today’s Upcoming Meetings</h2>
+        <div className="flex size-full flex-col gap-10 text-white mt-10">
+          <CallList type="upcoming" />
+        </div>
+      </div>
     </section>
   );
 };

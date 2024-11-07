@@ -9,7 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 
 interface MeetingCardProps {
   title: string;
-  date: string;
+  date: string | Date;
   icon: string;
   isPreviousMeeting?: boolean;
   buttonIcon1?: string;
@@ -30,14 +30,29 @@ const MeetingCard = ({
 }: MeetingCardProps) => {
   const { toast } = useToast();
 
+  const getDateTimeDisplayText = () => {
+    const dateObj = new Date(date);
+    const formattedDate = dateObj.toLocaleDateString("en-US", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    });
+    const formattedTime = dateObj.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+    return `${formattedDate} - ${formattedTime}`;
+  };
+
   return (
-    <section className="flex min-h-[258px] w-full flex-col justify-between rounded-[14px] bg-dark-1 px-5 py-8 xl:max-w-[568px]">
+    <section className="flex min-h-[258px] w-full flex-col justify-between rounded-[14px] bg-dark-1 px-5 py-8 xl:max-w-[900px]">
       <article className="flex flex-col gap-5">
         <Image src={icon} alt="upcoming" width={28} height={28} />
         <div className="flex justify-between">
           <div className="flex flex-col gap-2">
             <h1 className="text-2xl font-bold">{title}</h1>
-            <p className="text-base font-normal">{date}</p>
+            <p className="text-base font-normal">{getDateTimeDisplayText()}</p>
           </div>
         </div>
       </article>

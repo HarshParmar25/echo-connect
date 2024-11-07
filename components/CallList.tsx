@@ -86,10 +86,7 @@ const CallList = ({ type }: { type: "ended" | "upcoming" | "recordings" }) => {
               (meeting as CallRecording).filename?.substring(0, 20) ||
               "No Description"
             }
-            date={
-              (meeting as Call).state?.startsAt?.toLocaleString() ||
-              (meeting as CallRecording).start_time?.toLocaleString()
-            }
+            date={(meeting as Call).state?.startsAt || (meeting as CallRecording).start_time}
             isPreviousMeeting={type === "ended"}
             link={
               type === "recordings"
