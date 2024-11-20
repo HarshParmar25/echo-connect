@@ -4,7 +4,7 @@ import React from "react";
 const SignUpPage = () => {
   return (
     <main className="flex h-screen w-full items-center justify-center">
-      <SignUp />
+      <SignUp forceRedirectUrl={process.env.NEXT_PUBLIC_BASE_URL} />
     </main>
   );
 };
